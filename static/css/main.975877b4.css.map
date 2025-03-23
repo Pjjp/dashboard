@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/main.975877b4.css","mappings":"AACA,KAII,wBAAyB,CAHzB,4BAA8B,CAC9B,QAAS,CACT,SAEF,CAEA,GACE,UACF","sources":["index.css"],"sourcesContent":["/* src/index.css */\nbody {\n    font-family: Arial, sans-serif;\n    margin: 0;\n    padding: 0;\n    background-color: #f0f0f0;\n  }\n  \n  h1 {\n    color: #333;\n  }\n  "],"names":[],"sourceRoot":""}
