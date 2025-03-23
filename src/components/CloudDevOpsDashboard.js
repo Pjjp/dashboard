@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-// Import icons properly from lucide-react 
-import { Network, GitBranch, User, Cloud } from 'lucide-react';
+import { 
+  Network,
+  GitBranch,
+  User,
+  Cloud,
+  BrainCircuit,
+  Layout
+} from 'lucide-react';
 
 // Import child components
 import CloudInfrastructureView from './CloudInfrastructureView';
 import DevOpsDashboardView from './DevOpsDashboardView';
 import ProfessionalProfileView from './ProfessionalProfileView';
-
-// Rest of the component remains the same
+import ApplicationsView from './ApplicationsView';
+import CompetenceMindmapView from './CompetenceMindmapView';
 
 const CloudDevOpsDashboard = () => {
-  const [activeTab, setActiveTab] = useState('infrastructure');
+  const [activeTab, setActiveTab] = useState('competence');
 
   // Custom DevOps engineer profile based on your background
   const devOpsEngineerProfile = {
@@ -101,14 +107,32 @@ const CloudDevOpsDashboard = () => {
 
       {/* Dashboard Tabs */}
       <div className="w-full mb-6">
-        <div className="flex border-b border-gray-200">
+        <div className="flex flex-wrap border-b border-gray-200">
+            <button
+            className={`py-2 px-4 font-medium rounded-t-lg ${activeTab === 'profile' ? 'bg-indigo-500 text-white' : 'text-gray-600 hover:text-indigo-500'}`}
+            onClick={() => setActiveTab('profile')}
+            >
+            <div className="flex items-center">
+              <User size={18} className="mr-2" />
+              Professional Profile
+            </div>
+          </button>
           <button
-            className={`py-2 px-4 font-medium rounded-t-lg ${activeTab === 'infrastructure' ? 'bg-indigo-500 text-white' : 'text-gray-600 hover:text-indigo-500'}`}
-            onClick={() => setActiveTab('infrastructure')}
+            className={`py-2 px-4 font-medium rounded-t-lg ${activeTab === 'competence' ? 'bg-indigo-500 text-white' : 'text-gray-600 hover:text-indigo-500'}`}
+            onClick={() => setActiveTab('competence')}
           >
             <div className="flex items-center">
-              <Network size={18} className="mr-2" />
-              Cloud Infrastructure
+              <BrainCircuit size={18} className="mr-2" />
+              Competence Mindmap
+            </div>
+          </button>
+          <button
+            className={`py-2 px-4 font-medium rounded-t-lg ${activeTab === 'applications' ? 'bg-indigo-500 text-white' : 'text-gray-600 hover:text-indigo-500'}`}
+            onClick={() => setActiveTab('applications')}
+          >
+            <div className="flex items-center">
+              <Layout size={18} className="mr-2" />
+              Applications
             </div>
           </button>
           <button
@@ -120,21 +144,22 @@ const CloudDevOpsDashboard = () => {
               DevOps Dashboard
             </div>
           </button>
-          <button
-            className={`py-2 px-4 font-medium rounded-t-lg ${activeTab === 'profile' ? 'bg-indigo-500 text-white' : 'text-gray-600 hover:text-indigo-500'}`}
-            onClick={() => setActiveTab('profile')}
-          >
-            <div className="flex items-center">
-              <User size={18} className="mr-2" />
-              Professional Profile
-            </div>
-          </button>
+         
         </div>
       </div>
 
       {/* Render the appropriate component based on active tab */}
-      {activeTab === 'infrastructure' && (
-        <CloudInfrastructureView 
+      {activeTab === 'competence' && (
+        <CompetenceMindmapView 
+          devOpsEngineerProfile={devOpsEngineerProfile} 
+          devOpsMetrics={devOpsMetrics} 
+          pipelineEvents={pipelineEvents}
+        />
+      )}
+      
+      {/* Applications Dashboard */}
+      {activeTab === 'applications' && (
+        <ApplicationsView 
           devOpsEngineerProfile={devOpsEngineerProfile} 
           devOpsMetrics={devOpsMetrics} 
           pipelineEvents={pipelineEvents}
