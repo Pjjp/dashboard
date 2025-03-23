@@ -57,9 +57,9 @@ const CloudDevOpsDashboard = () => {
   const devOpsEngineerProfile = {
     name: "Your Name",
     title: "Cloud DevOps Engineer",
-    avatar: "/api/placeholder/150/150",
+    avatar: "/images/profile.jpeg",
     experience: "3 years 10 months of DevOps experience across Azure, AWS and on-premises environments",
-    certifications: ["AZ-104", "AZ-500", "SC-100", "AZ-700", "AWS Solutions Architect Associate", "Cisco Certified"],
+    certifications: ["AZ-104", "AZ-500", "SC-100", "AZ-700", "Certificate of Cloud Security Knowledge v.5", "AWS Solutions Architect Associate", "Cisco Certified"],
     expertise: ["CI/CD Pipelines", "Infrastructure as Code", "Kubernetes", "Cloud Security", "Python Development", "OpenShift"],
     education: {
       engineering: "Engineering Degree in Cybersecurity",
