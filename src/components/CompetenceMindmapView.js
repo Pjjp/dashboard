@@ -845,61 +845,61 @@ const CompetenceMindmap = ({ devOpsEngineerProfile }) => {
   }, []); // Run only once on mount
 
   // --- Calculate Group Elastic Bands --- 
-  useEffect(() => {
-    if (competencies.length === 0) return;
+  // useEffect(() => {  // <<< COMMENT OUT START
+  //   if (competencies.length === 0) return;
 
-    const areaNodes = competencies.filter(c => c.type === 'area');
-    const bands = {};
-    const allNodesById = new Map(competencies.map(n => [n.id, n]));
+  //   const areaNodes = competencies.filter(c => c.type === 'area');
+  //   const bands = {};
+  //   const allNodesById = new Map(competencies.map(n => [n.id, n]));
 
-    // Simplified logic for finding direct neighbors (from previous step)
-    const getDirectNeighbors = (areaNodeId) => {
-        const neighbors = new Set();
-        neighbors.add(areaNodeId); // Include the area node itself
-        originalEdges.forEach(({ from, to }) => {
-            if (from === areaNodeId && allNodesById.has(to)) neighbors.add(to);
-            if (to === areaNodeId && allNodesById.has(from)) neighbors.add(from);
-        });
-        return Array.from(neighbors).map(id => allNodesById.get(id)).filter(Boolean);
-    };
+  //   // Simplified logic for finding direct neighbors (from previous step)
+  //   const getDirectNeighbors = (areaNodeId) => {
+  //       const neighbors = new Set();
+  //       neighbors.add(areaNodeId); // Include the area node itself
+  //       originalEdges.forEach(({ from, to }) => {
+  //           if (from === areaNodeId && allNodesById.has(to)) neighbors.add(to);
+  //           if (to === areaNodeId && allNodesById.has(from)) neighbors.add(from);
+  //       });
+  //       return Array.from(neighbors).map(id => allNodesById.get(id)).filter(Boolean);
+  //   };
 
-    // Define the line generator for smooth closed curves
-    const lineGenerator = d3Line()
-        .x(d => d.x)
-        .y(d => d.y)
-        .curve(d3CurveBasisClosed);
+  //   // Define the line generator for smooth closed curves
+  //   const lineGenerator = d3Line()
+  //       .x(d => d.x)
+  //       .y(d => d.y)
+  //       .curve(d3CurveBasisClosed);
 
-    areaNodes.forEach(areaNode => {
-      const clusterNodes = getDirectNeighbors(areaNode.id);
-      // Get current positions of cluster nodes
-      const clusterPoints = clusterNodes.map(node => ({ x: node.x, y: node.y }));
+  //   areaNodes.forEach(areaNode => {
+  //     const clusterNodes = getDirectNeighbors(areaNode.id);
+  //     // Get current positions of cluster nodes
+  //     const clusterPoints = clusterNodes.map(node => ({ x: node.x, y: node.y }));
 
-      if (clusterPoints.length >= 3) { // Need at least 3 points for a hull
-        const hullPoints = polygonHull(clusterPoints.map(p => [p.x, p.y])); // d3.polygonHull expects [[x,y], ...]
+  //     if (clusterPoints.length >= 3) { // Need at least 3 points for a hull
+  //       const hullPoints = polygonHull(clusterPoints.map(p => [p.x, p.y])); // d3.polygonHull expects [[x,y], ...]
         
-        if (hullPoints) {
-          // Convert hull back to [{x,y}, ...] for line generator and add padding
-          const padding = 25; // Adjust padding for the band
-          const paddedHull = hullPoints.map(([x, y]) => {
-              // Calculate vector from center (approximate)
-              const dx = x - areaNode.x;
-              const dy = y - areaNode.y;
-              const dist = Math.sqrt(dx*dx + dy*dy);
-              const scale = dist > 0 ? (dist + padding) / dist : 1;
-              return { x: areaNode.x + dx * scale, y: areaNode.y + dy * scale };
-          });
+  //       if (hullPoints) {
+  //         // Convert hull back to [{x,y}, ...] for line generator and add padding
+  //         const padding = 25; // Adjust padding for the band
+  //         const paddedHull = hullPoints.map(([x, y]) => {
+  //             // Calculate vector from center (approximate)
+  //             const dx = x - areaNode.x;
+  //             const dy = y - areaNode.y;
+  //             const dist = Math.sqrt(dx*dx + dy*dy);
+  //             const scale = dist > 0 ? (dist + padding) / dist : 1;
+  //             return { x: areaNode.x + dx * scale, y: areaNode.y + dy * scale };
+  //         });
           
-          bands[areaNode.id] = {
-            path: lineGenerator(paddedHull), // Generate smooth closed path
-            // Store a very transparent fill color instead of a stroke color
-            fillColor: areaNode.color + '0A' // Semi-transparent fill (~6% opacity)
-          };
-        }
-      }
-    });
-    setGroupElasticBands(bands);
+  //         bands[areaNode.id] = {
+  //           path: lineGenerator(paddedHull), // Generate smooth closed path
+  //           // Store a very transparent fill color instead of a stroke color
+  //           fillColor: areaNode.color + '0A' // Semi-transparent fill (~6% opacity)
+  //         };
+  //       }
+  //     }
+  //   });
+  //   setGroupElasticBands(bands);
 
-  }, [competencies]); // Recalculate when node positions change
+  // }, [competencies]); // Recalculate when node positions change // <<< COMMENT OUT END
 
   return (
     <div className="w-full">
