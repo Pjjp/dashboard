@@ -69,9 +69,9 @@ const CloudDevOpsDashboard = () => {
   ]);
 
   return (
-    <div className="flex flex-col items-center w-full max-w-6xl p-4 mx-auto">
-      {/* DevOps Engineer Profile Banner */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg shadow-lg mb-6 overflow-hidden">
+    <div className="flex flex-col items-center w-full min-h-screen py-4 mx-auto">
+      {/* DevOps Engineer Profile Banner - Apply w-10/12 */}
+      <div className="w-10/12 mx-auto bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-lg shadow-lg mb-6 overflow-hidden">
         <div className="flex flex-col md:flex-row items-center p-4">
           <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
             <div className="relative">
@@ -105,8 +105,8 @@ const CloudDevOpsDashboard = () => {
         </div>
       </div>
 
-      {/* Dashboard Tabs */}
-      <div className="w-full mb-6">
+      {/* Dashboard Tabs - Apply w-10/12 */}
+      <div className="w-10/12 mx-auto mb-6">
         <div className="flex flex-wrap border-b border-gray-200">
             <button
             className={`py-2 px-4 font-medium rounded-t-lg ${activeTab === 'profile' ? 'bg-indigo-500 text-white' : 'text-gray-600 hover:text-indigo-500'}`}
@@ -148,39 +148,50 @@ const CloudDevOpsDashboard = () => {
         </div>
       </div>
 
-      {/* Render the appropriate component based on active tab */}
-      {activeTab === 'competence' && (
-        <CompetenceMindmapView 
-          devOpsEngineerProfile={devOpsEngineerProfile} 
-          devOpsMetrics={devOpsMetrics} 
-          pipelineEvents={pipelineEvents}
-        />
-      )}
-      
-      {/* Applications Dashboard */}
-      {activeTab === 'applications' && (
-        <ApplicationsView 
-          devOpsEngineerProfile={devOpsEngineerProfile} 
-          devOpsMetrics={devOpsMetrics} 
-          pipelineEvents={pipelineEvents}
-        />
-      )}
+      {/* Container for Active Tab Content - Apply w-10/12 */}
+      <div className="w-10/12 mx-auto flex-grow flex flex-col items-center">
+        {/* Render the appropriate component based on active tab */}
+        {activeTab === 'competence' && (
+          <div className="w-full h-full flex flex-col items-center">
+            <CompetenceMindmapView 
+              devOpsEngineerProfile={devOpsEngineerProfile} 
+              devOpsMetrics={devOpsMetrics}
+              pipelineEvents={pipelineEvents}
+            />
+          </div>
+        )}
+        
+        {/* Applications Dashboard */}
+        {activeTab === 'applications' && (
+          <div className="w-full h-full flex flex-col items-center">
+            <ApplicationsView 
+              devOpsEngineerProfile={devOpsEngineerProfile} 
+              devOpsMetrics={devOpsMetrics} 
+              pipelineEvents={pipelineEvents}
+            />
+          </div>
+        )}
 
-      {activeTab === 'devops' && (
-        <DevOpsDashboardView 
-          devOpsMetrics={devOpsMetrics} 
-          pipelineEvents={pipelineEvents}
-        />
-      )}
+        {activeTab === 'devops' && (
+          <div className="w-full h-full flex flex-col items-center">
+            <DevOpsDashboardView 
+              devOpsMetrics={devOpsMetrics} 
+              pipelineEvents={pipelineEvents}
+            />
+          </div>
+        )}
 
-      {activeTab === 'profile' && (
-        <ProfessionalProfileView 
-          devOpsEngineerProfile={devOpsEngineerProfile}
-        />
-      )}
+        {activeTab === 'profile' && (
+          <div className="w-full h-full flex flex-col items-center max-w-4xl">
+            <ProfessionalProfileView 
+              devOpsEngineerProfile={devOpsEngineerProfile}
+            />
+          </div>
+        )}
+      </div>
 
-      {/* Footer with DevOps Engineer Notice */}
-      <div className="mt-8 pt-4 border-t border-gray-200 text-center text-xs text-gray-500">
+      {/* Footer with DevOps Engineer Notice - Apply w-10/12 */}
+      <div className="w-10/12 mx-auto mt-8 pt-4 border-t border-gray-200 text-center text-xs text-gray-500">
         <p>Cloud infrastructure managed by {devOpsEngineerProfile.name}, {devOpsEngineerProfile.title}</p>
         <p className="mt-1">Last deployment: February 27, 2025 | Next scheduled maintenance: March 10, 2025</p>
       </div>
